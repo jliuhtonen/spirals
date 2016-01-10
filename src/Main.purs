@@ -40,7 +40,7 @@ drawFrame canvas ctx arcs = do
   dimensions <- getCanvasDimensions canvas
   clearRect ctx { x: -0.5 * dimensions.width, y: -0.5 * dimensions.height, w: dimensions.width, h: dimensions.height }
   drawArcs arcs ctx
-  rotate (-1.0 / (2.0 * pi)) ctx
+  rotate (-0.25 / (2.0 * pi)) ctx
   requestAnimationFrame (drawFrame canvas ctx arcs)
 
 drawArcs :: forall e. List Arc -> Context2D -> Eff (canvas :: Canvas | e) Unit

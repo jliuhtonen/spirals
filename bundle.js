@@ -10957,23 +10957,18 @@ var resizeCanvas = function (canvas) {
         return Prelude.unit;
     };
 };
-var resizeEventHandler = function (canvas) {
-    return function (_6) {
-        return resizeCanvas(canvas);
-    };
-};
 var goldenRatio = (1.0 + $$Math.sqrt(5.0)) / 2.0;
-var fib = function (_9) {
-    if (_9 === 0) {
+var fib = function (_8) {
+    if (_8 === 0) {
         return 1;
     };
-    if (_9 === 1) {
+    if (_8 === 1) {
         return 1;
     };
-    return fib(_9 - 2) + fib(_9 - 1) | 0;
+    return fib(_8 - 2) + fib(_8 - 1) | 0;
 };
-var fibNum = function (_28) {
-    return Data_Int.toNumber(fib(_28));
+var fibNum = function (_26) {
+    return Data_Int.toNumber(fib(_26));
 };
 var drawArcs = function (arcs) {
     return function (ctx) {
@@ -10999,41 +10994,41 @@ var drawFrame = function (canvas) {
                     h: _5.height
                 })();
                 drawArcs(arcs)(ctx)();
-                Graphics_Canvas.rotate(-1.0 / (2.0 * $$Math.pi))(ctx)();
+                Graphics_Canvas.rotate(-0.25 / (2.0 * $$Math.pi))(ctx)();
                 return DOM_RequestAnimationFrame.requestAnimationFrame(drawFrame(canvas)(ctx)(arcs))();
             };
         };
     };
 };
-var calculateArcs$prime = function (__copy__7) {
-    return function (__copy__8) {
+var calculateArcs$prime = function (__copy__6) {
+    return function (__copy__7) {
         return function (__copy_quadrant) {
             return function (__copy_lst) {
+                var _6 = __copy__6;
                 var _7 = __copy__7;
-                var _8 = __copy__8;
                 var quadrant = __copy_quadrant;
                 var lst = __copy_lst;
                 tco: while (true) {
-                    if (_7 === 0) {
+                    if (_6 === 0) {
                         return lst;
                     };
                     var newQuadrant = (function () {
-                        var _19 = quadrant < 4;
-                        if (_19) {
+                        var _17 = quadrant < 4;
+                        if (_17) {
                             return quadrant + 1 | 0;
                         };
-                        if (!_19) {
+                        if (!_17) {
                             return 1;
                         };
-                        throw new Error("Failed pattern match at Main line 71, column 3 - line 77, column 1: " + [ _19.constructor.name ]);
+                        throw new Error("Failed pattern match at Main line 67, column 3 - line 73, column 1: " + [ _17.constructor.name ]);
                     })();
                     var index = Data_List.length(lst);
                     var r = fibNum(index);
                     var item = (function () {
                         if (quadrant === 1) {
                             return {
-                                x: _8.x, 
-                                y: _8.y, 
+                                x: _7.x, 
+                                y: _7.y, 
                                 r: r, 
                                 start: 0.0, 
                                 end: $$Math.pi / 2.0
@@ -11041,8 +11036,8 @@ var calculateArcs$prime = function (__copy__7) {
                         };
                         if (quadrant === 2) {
                             return {
-                                x: _8.x, 
-                                y: _8.y, 
+                                x: _7.x, 
+                                y: _7.y, 
                                 r: r, 
                                 start: $$Math.pi / 2.0, 
                                 end: $$Math.pi
@@ -11050,8 +11045,8 @@ var calculateArcs$prime = function (__copy__7) {
                         };
                         if (quadrant === 3) {
                             return {
-                                x: _8.x, 
-                                y: _8.y, 
+                                x: _7.x, 
+                                y: _7.y, 
                                 r: r, 
                                 start: $$Math.pi, 
                                 end: (3.0 * $$Math.pi) / 2.0
@@ -11059,8 +11054,8 @@ var calculateArcs$prime = function (__copy__7) {
                         };
                         if (quadrant === 4) {
                             return {
-                                x: _8.x, 
-                                y: _8.y, 
+                                x: _7.x, 
+                                y: _7.y, 
                                 r: r, 
                                 start: (3.0 * $$Math.pi) / 2.0, 
                                 end: 2.0 * $$Math.pi
@@ -11071,34 +11066,34 @@ var calculateArcs$prime = function (__copy__7) {
                     var newCoords = (function () {
                         if (quadrant === 1) {
                             return {
-                                x: _8.x, 
-                                y: _8.y - r / goldenRatio
+                                x: _7.x, 
+                                y: _7.y - r / goldenRatio
                             };
                         };
                         if (quadrant === 2) {
                             return {
-                                x: _8.x + r / goldenRatio, 
-                                y: _8.y
+                                x: _7.x + r / goldenRatio, 
+                                y: _7.y
                             };
                         };
                         if (quadrant === 3) {
                             return {
-                                x: _8.x, 
-                                y: _8.y + r / goldenRatio
+                                x: _7.x, 
+                                y: _7.y + r / goldenRatio
                             };
                         };
                         if (quadrant === 4) {
                             return {
-                                x: _8.x - r / goldenRatio, 
-                                y: _8.y
+                                x: _7.x - r / goldenRatio, 
+                                y: _7.y
                             };
                         };
                         throw new Error("Failed pattern match: " + [ quadrant.constructor.name ]);
                     })();
-                    var __tco__7 = _7 - 1;
+                    var __tco__6 = _6 - 1;
                     var __tco_lst = Data_List[":"](item)(lst);
-                    _7 = __tco__7;
-                    _8 = newCoords;
+                    _6 = __tco__6;
+                    _7 = newCoords;
                     quadrant = newQuadrant;
                     lst = __tco_lst;
                     continue tco;
@@ -11120,7 +11115,6 @@ var main = (function () {
     return function __do() {
         var _2 = Graphics_Canvas.getCanvasElementById("canvas")();
         if (_2 instanceof Data_Maybe.Just) {
-            Data_DOM_Simple_Events.addUIEventListener(Data_DOM_Simple_Events.uiEventTargetHTMLWindow)(Data_DOM_Simple_Events.uiEventDOMEvent)(Data_DOM_Simple_Events.ResizeEvent.value)(resizeEventHandler(_2.value0))(Data_DOM_Simple_Window.globalWindow)();
             resizeCanvas(_2.value0)();
             var _1 = Prelude[">>="](Control_Monad_Eff.bindEff)(Prelude[">>="](Control_Monad_Eff.bindEff)(Graphics_Canvas.getContext2D(_2.value0))(Graphics_Canvas.setStrokeStyle(strokeColor)))(Graphics_Canvas.setLineWidth(2.0))();
             var _0 = Graphics_Canvas.getCanvasDimensions(_2.value0)();
@@ -11138,7 +11132,7 @@ var main = (function () {
                 };
             })()();
         };
-        throw new Error("Failed pattern match at Main line 20, column 1 - line 31, column 1: " + [ _2.constructor.name ]);
+        throw new Error("Failed pattern match at Main line 20, column 1 - line 30, column 1: " + [ _2.constructor.name ]);
     };
 })();
 module.exports = {
@@ -11150,7 +11144,6 @@ module.exports = {
     drawArcs: drawArcs, 
     drawFrame: drawFrame, 
     resizeCanvas: resizeCanvas, 
-    resizeEventHandler: resizeEventHandler, 
     main: main, 
     strokeColor: strokeColor
 };
