@@ -4,3 +4,4 @@
 /.psci*
 /src/.webpack.js
 *.swp
+.pulp-cache/
