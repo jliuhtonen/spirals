@@ -9,6 +9,9 @@ import Control.Monad.Eff.Console
 import Graphics.Canvas
 import DOM
 import DOM.RequestAnimationFrame
+import Data.DOM.Simple.Types
+import Data.DOM.Simple.Window
+import Data.DOM.Simple.Events
 import Math (pi, sqrt)
 import Prelude
 
@@ -17,11 +20,20 @@ strokeColor = "#FFD700"
 main = do
   let arcs = reverse $ calculateArcs {x: 0.0, y: 0.0} 14
   Just canvas <- getCanvasElementById "canvas"
+  resizeCanvas canvas
   ctx <- getContext2D canvas >>= setStrokeStyle strokeColor >>= setLineWidth 2.0
   dimensions <- getCanvasDimensions canvas
   let middle = { x: dimensions.width / 2.0, y: dimensions.height / 2.0 }
   translate { translateX: middle.x, translateY: middle.y } ctx
   requestAnimationFrame (drawFrame canvas ctx arcs)
+
+resizeCanvas :: forall e. CanvasElement -> Eff (dom :: DOM, canvas :: Canvas | e) Unit
+resizeCanvas canvas = do
+  w <- innerWidth globalWindow
+  h <- innerHeight globalWindow
+  setCanvasWidth w canvas
+  setCanvasHeight h canvas
+  pure unit
 
 drawFrame :: forall e. CanvasElement -> Context2D -> List Arc -> Eff (dom :: DOM, canvas :: Canvas | e) Unit
 drawFrame canvas ctx arcs = do
