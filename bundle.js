@@ -8604,6 +8604,7 @@ var DOM = require("DOM");
 var DOM_RequestAnimationFrame = require("DOM.RequestAnimationFrame");
 var $$Math = require("Math");
 var Prelude = require("Prelude");
+var strokeColor = "#6776e6";
 var goldenRatio = (1.0 + $$Math.sqrt(5.0)) / 2.0;
 var fib = function (_6) {
     if (_6 === 0) {
@@ -8617,7 +8618,37 @@ var fib = function (_6) {
 var fibNum = function (_23) {
     return Data_Int.toNumber(fib(_23));
 };
-var asArc$prime = function (__copy__4) {
+var drawArcs = function (arcs) {
+    return function (ctx) {
+        var drawArc = function (a) {
+            return function __do() {
+                Graphics_Canvas.beginPath(ctx)();
+                Graphics_Canvas.arc(ctx)(a)();
+                return Graphics_Canvas.stroke(ctx)();
+            };
+        };
+        return Data_Foldable.traverse_(Control_Monad_Eff.applicativeEff)(Data_List.foldableList)(drawArc)(arcs);
+    };
+};
+var drawFrame = function (canvas) {
+    return function (ctx) {
+        return function (arcs) {
+            return function __do() {
+                var _3 = Graphics_Canvas.getCanvasDimensions(canvas)();
+                Graphics_Canvas.clearRect(ctx)({
+                    x: -0.5 * _3.width, 
+                    y: -0.5 * _3.height, 
+                    w: _3.width, 
+                    h: _3.height
+                })();
+                drawArcs(arcs)(ctx)();
+                Graphics_Canvas.rotate(-1.0 / (2.0 * $$Math.pi))(ctx)();
+                return DOM_RequestAnimationFrame.requestAnimationFrame(drawFrame(canvas)(ctx)(arcs))();
+            };
+        };
+    };
+};
+var calculateArcs$prime = function (__copy__4) {
     return function (__copy_i) {
         return function (__copy__5) {
             return function (__copy_dir) {
@@ -8634,14 +8665,14 @@ var asArc$prime = function (__copy__4) {
                         var r = fibNum(i);
                         var rFix = (3.0 * r) / 2.0;
                         var newDir = (function () {
-                            var _13 = dir < 4;
-                            if (_13) {
+                            var _14 = dir < 4;
+                            if (_14) {
                                 return dir + 1 | 0;
                             };
-                            if (!_13) {
+                            if (!_14) {
                                 return 1;
                             };
-                            throw new Error("Failed pattern match: " + [ _13.constructor.name ]);
+                            throw new Error("Failed pattern match: " + [ _14.constructor.name ]);
                         })();
                         var newCoords = (function () {
                             if (dir === 1) {
@@ -8726,64 +8757,46 @@ var asArc$prime = function (__copy__4) {
 };
 var calculateArcs = function (coords) {
     return function (n) {
-        return asArc$prime(n)(0)(coords)(1)(Data_List.Nil.value);
+        return calculateArcs$prime(n)(0)(coords)(1)(Data_List.Nil.value);
     };
 };
-var drawFrame = function (canvas) {
-    return function (ctx) {
-        return function __do() {
-            var _3 = Graphics_Canvas.getCanvasDimensions(canvas)();
-            Graphics_Canvas.clearRect(ctx)({
-                x: -0.5 * _3.width, 
-                y: -0.5 * _3.height, 
-                w: _3.width, 
-                h: _3.height
-            })();
-            Graphics_Canvas.beginPath(ctx)();
-            var arcs = Data_List.reverse(calculateArcs({
-                x: 0.0, 
-                y: 0.0
-            })(13));
-            Data_Foldable.traverse_(Control_Monad_Eff.applicativeEff)(Data_List.foldableList)(function (a) {
-                return Graphics_Canvas.arc(ctx)(a);
-            })(arcs)();
-            Graphics_Canvas.stroke(ctx)();
-            Graphics_Canvas.rotate(-1.0 / (2.0 * $$Math.pi))(ctx)();
-            return DOM_RequestAnimationFrame.requestAnimationFrame(drawFrame(canvas)(ctx))();
+var main = (function () {
+    var arcs = Data_List.reverse(calculateArcs({
+        x: 0.0, 
+        y: 0.0
+    })(14));
+    return function __do() {
+        var _2 = Graphics_Canvas.getCanvasElementById("canvas")();
+        if (_2 instanceof Data_Maybe.Just) {
+            var _1 = Prelude[">>="](Control_Monad_Eff.bindEff)(Graphics_Canvas.getContext2D(_2.value0))(Graphics_Canvas.setStrokeStyle(strokeColor))();
+            var _0 = Graphics_Canvas.getCanvasDimensions(_2.value0)();
+            return (function () {
+                var middle = {
+                    x: _0.width / 2.0, 
+                    y: _0.height / 2.0
+                };
+                return function __do() {
+                    Graphics_Canvas.translate({
+                        translateX: middle.x, 
+                        translateY: middle.y
+                    })(_1)();
+                    return DOM_RequestAnimationFrame.requestAnimationFrame(drawFrame(_2.value0)(_1)(arcs))();
+                };
+            })()();
         };
+        throw new Error("Failed pattern match at Main line 17, column 1 - line 26, column 1: " + [ _2.constructor.name ]);
     };
-};
-var main = function __do() {
-    var _2 = Graphics_Canvas.getCanvasElementById("canvas")();
-    if (_2 instanceof Data_Maybe.Just) {
-        var _1 = Graphics_Canvas.getContext2D(_2.value0)();
-        Graphics_Canvas.setFillStyle("#000000")(_1)();
-        var _0 = Graphics_Canvas.getCanvasDimensions(_2.value0)();
-        return (function () {
-            var middle = {
-                x: _0.width / 2.0, 
-                y: _0.height / 2.0
-            };
-            return function __do() {
-                Graphics_Canvas.translate({
-                    translateX: middle.x, 
-                    translateY: middle.y
-                })(_1)();
-                DOM_RequestAnimationFrame.requestAnimationFrame(drawFrame(_2.value0)(_1))();
-                return Control_Monad_Eff_Console.log("Hello sailor!")();
-            };
-        })()();
-    };
-    throw new Error("Failed pattern match at Main line 15, column 1 - line 25, column 1: " + [ _2.constructor.name ]);
-};
+})();
 module.exports = {
     fib: fib, 
     fibNum: fibNum, 
     goldenRatio: goldenRatio, 
-    "asArc'": asArc$prime, 
+    "calculateArcs'": calculateArcs$prime, 
     calculateArcs: calculateArcs, 
+    drawArcs: drawArcs, 
     drawFrame: drawFrame, 
-    main: main
+    main: main, 
+    strokeColor: strokeColor
 };
 
 },{"Control.Monad.Eff":"/Users/janne/projects/spirals/output/Control.Monad.Eff/index.js","Control.Monad.Eff.Console":"/Users/janne/projects/spirals/output/Control.Monad.Eff.Console/index.js","DOM":"/Users/janne/projects/spirals/output/DOM/index.js","DOM.RequestAnimationFrame":"/Users/janne/projects/spirals/output/DOM.RequestAnimationFrame/index.js","Data.Foldable":"/Users/janne/projects/spirals/output/Data.Foldable/index.js","Data.Int":"/Users/janne/projects/spirals/output/Data.Int/index.js","Data.List":"/Users/janne/projects/spirals/output/Data.List/index.js","Data.Maybe":"/Users/janne/projects/spirals/output/Data.Maybe/index.js","Graphics.Canvas":"/Users/janne/projects/spirals/output/Graphics.Canvas/index.js","Math":"/Users/janne/projects/spirals/output/Math/index.js","Prelude":"/Users/janne/projects/spirals/output/Prelude/index.js"}],"/Users/janne/projects/spirals/output/Math/foreign.js":[function(require,module,exports){
