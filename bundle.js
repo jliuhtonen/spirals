@@ -8615,8 +8615,8 @@ var fib = function (_6) {
     };
     return fib(_6 - 2) + fib(_6 - 1) | 0;
 };
-var fibNum = function (_23) {
-    return Data_Int.toNumber(fib(_23));
+var fibNum = function (_22) {
+    return Data_Int.toNumber(fib(_22));
 };
 var drawArcs = function (arcs) {
     return function (ctx) {
@@ -8649,106 +8649,102 @@ var drawFrame = function (canvas) {
     };
 };
 var calculateArcs$prime = function (__copy__4) {
-    return function (__copy_i) {
-        return function (__copy__5) {
-            return function (__copy_dir) {
-                return function (__copy_lst) {
-                    var _4 = __copy__4;
-                    var i = __copy_i;
-                    var _5 = __copy__5;
-                    var dir = __copy_dir;
-                    var lst = __copy_lst;
-                    tco: while (true) {
-                        if (_4 === 0) {
-                            return lst;
-                        };
-                        var r = fibNum(i);
-                        var newDir = (function () {
-                            var _14 = dir < 4;
-                            if (_14) {
-                                return dir + 1 | 0;
-                            };
-                            if (!_14) {
-                                return 1;
-                            };
-                            throw new Error("Failed pattern match: " + [ _14.constructor.name ]);
-                        })();
-                        var newCoords = (function () {
-                            if (dir === 1) {
-                                return {
-                                    x: _5.x, 
-                                    y: _5.y - r / goldenRatio
-                                };
-                            };
-                            if (dir === 2) {
-                                return {
-                                    x: _5.x + r / goldenRatio, 
-                                    y: _5.y
-                                };
-                            };
-                            if (dir === 3) {
-                                return {
-                                    x: _5.x, 
-                                    y: _5.y + r / goldenRatio
-                                };
-                            };
-                            if (dir === 4) {
-                                return {
-                                    x: _5.x - r / goldenRatio, 
-                                    y: _5.y
-                                };
-                            };
-                            throw new Error("Failed pattern match: " + [ dir.constructor.name ]);
-                        })();
-                        var item = (function () {
-                            if (dir === 1) {
-                                return {
-                                    x: _5.x, 
-                                    y: _5.y, 
-                                    r: r, 
-                                    start: 0.0, 
-                                    end: $$Math.pi / 2.0
-                                };
-                            };
-                            if (dir === 2) {
-                                return {
-                                    x: _5.x, 
-                                    y: _5.y, 
-                                    r: r, 
-                                    start: $$Math.pi / 2.0, 
-                                    end: $$Math.pi
-                                };
-                            };
-                            if (dir === 3) {
-                                return {
-                                    x: _5.x, 
-                                    y: _5.y, 
-                                    r: r, 
-                                    start: $$Math.pi, 
-                                    end: (3.0 * $$Math.pi) / 2.0
-                                };
-                            };
-                            if (dir === 4) {
-                                return {
-                                    x: _5.x, 
-                                    y: _5.y, 
-                                    r: r, 
-                                    start: (3.0 * $$Math.pi) / 2.0, 
-                                    end: 2.0 * $$Math.pi
-                                };
-                            };
-                            throw new Error("Failed pattern match: " + [ dir.constructor.name ]);
-                        })();
-                        var __tco__4 = _4 - 1;
-                        var __tco_i = i + 1 | 0;
-                        var __tco_lst = Data_List[":"](item)(lst);
-                        _4 = __tco__4;
-                        i = __tco_i;
-                        _5 = newCoords;
-                        dir = newDir;
-                        lst = __tco_lst;
-                        continue tco;
+    return function (__copy__5) {
+        return function (__copy_dir) {
+            return function (__copy_lst) {
+                var _4 = __copy__4;
+                var _5 = __copy__5;
+                var dir = __copy_dir;
+                var lst = __copy_lst;
+                tco: while (true) {
+                    if (_4 === 0) {
+                        return lst;
                     };
+                    var newDir = (function () {
+                        var _13 = dir < 4;
+                        if (_13) {
+                            return dir + 1 | 0;
+                        };
+                        if (!_13) {
+                            return 1;
+                        };
+                        throw new Error("Failed pattern match at Main line 55, column 3 - line 61, column 1: " + [ _13.constructor.name ]);
+                    })();
+                    var index = Data_List.length(lst);
+                    var r = fibNum(index);
+                    var item = (function () {
+                        if (dir === 1) {
+                            return {
+                                x: _5.x, 
+                                y: _5.y, 
+                                r: r, 
+                                start: 0.0, 
+                                end: $$Math.pi / 2.0
+                            };
+                        };
+                        if (dir === 2) {
+                            return {
+                                x: _5.x, 
+                                y: _5.y, 
+                                r: r, 
+                                start: $$Math.pi / 2.0, 
+                                end: $$Math.pi
+                            };
+                        };
+                        if (dir === 3) {
+                            return {
+                                x: _5.x, 
+                                y: _5.y, 
+                                r: r, 
+                                start: $$Math.pi, 
+                                end: (3.0 * $$Math.pi) / 2.0
+                            };
+                        };
+                        if (dir === 4) {
+                            return {
+                                x: _5.x, 
+                                y: _5.y, 
+                                r: r, 
+                                start: (3.0 * $$Math.pi) / 2.0, 
+                                end: 2.0 * $$Math.pi
+                            };
+                        };
+                        throw new Error("Failed pattern match: " + [ dir.constructor.name ]);
+                    })();
+                    var newCoords = (function () {
+                        if (dir === 1) {
+                            return {
+                                x: _5.x, 
+                                y: _5.y - r / goldenRatio
+                            };
+                        };
+                        if (dir === 2) {
+                            return {
+                                x: _5.x + r / goldenRatio, 
+                                y: _5.y
+                            };
+                        };
+                        if (dir === 3) {
+                            return {
+                                x: _5.x, 
+                                y: _5.y + r / goldenRatio
+                            };
+                        };
+                        if (dir === 4) {
+                            return {
+                                x: _5.x - r / goldenRatio, 
+                                y: _5.y
+                            };
+                        };
+                        throw new Error("Failed pattern match: " + [ dir.constructor.name ]);
+                    })();
+                    var __tco__4 = _4 - 1;
+                    var __tco_lst = Data_List[":"](item)(lst);
+                    _4 = __tco__4;
+                    _5 = newCoords;
+                    dir = newDir;
+                    lst = __tco_lst;
+                    continue tco;
                 };
             };
         };
@@ -8756,7 +8752,7 @@ var calculateArcs$prime = function (__copy__4) {
 };
 var calculateArcs = function (coords) {
     return function (n) {
-        return calculateArcs$prime(n)(0)(coords)(1)(Data_List.Nil.value);
+        return calculateArcs$prime(n)(coords)(1)(Data_List.Nil.value);
     };
 };
 var main = (function () {

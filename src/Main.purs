@@ -39,12 +39,13 @@ drawArcs arcs ctx = traverse_ drawArc arcs where
     stroke ctx
 
 calculateArcs :: { x :: Number, y :: Number } -> Int -> List Arc
-calculateArcs coords n = calculateArcs' n 0 coords 1 Nil
+calculateArcs coords n = calculateArcs' n coords 1 Nil
 
-calculateArcs' :: Int -> Int -> { x :: Number, y :: Number } -> Int -> List Arc -> List Arc
-calculateArcs' 0 _ _ _ lst = lst
-calculateArcs' n i {x: x, y: y} dir lst = calculateArcs' (n - 1) (i + 1) newCoords newDir (item : lst) where
-  r = fibNum i
+calculateArcs' :: Int -> { x :: Number, y :: Number } -> Int -> List Arc -> List Arc
+calculateArcs' 0 _ _ lst = lst
+calculateArcs' n {x: x, y: y} dir lst = calculateArcs' (n - 1) newCoords newDir (item : lst) where
+  index = length lst
+  r = fibNum index
   newDir = if dir < 4 then dir + 1 else 1
   item = case dir of
               1 -> { x: x, y: y, r: r, start: 0.0, end: pi / 2.0}
