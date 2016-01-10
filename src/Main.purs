@@ -51,7 +51,6 @@ calculateArcs' n i {x: x, y: y} dir lst = calculateArcs' (n - 1) (i + 1) newCoor
               2 -> { x: x, y: y, r: r, start: pi / 2.0, end: pi }
               3 -> { x: x, y: y, r: r, start: pi, end: 3.0 * pi / 2.0 }
               4 -> { x: x, y: y, r: r, start: 3.0 * pi / 2.0, end: 2.0 * pi }
-  rFix = 3.0 * r / 2.0
   newCoords = case dir of
                    1 -> { x: x, y: y - (r / goldenRatio) }
                    2 -> { x: x + (r / goldenRatio), y: y }

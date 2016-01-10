@@ -8663,7 +8663,6 @@ var calculateArcs$prime = function (__copy__4) {
                             return lst;
                         };
                         var r = fibNum(i);
-                        var rFix = (3.0 * r) / 2.0;
                         var newDir = (function () {
                             var _14 = dir < 4;
                             if (_14) {
