@@ -43,16 +43,16 @@ calculateArcs coords n = calculateArcs' n coords 1 Nil
 
 calculateArcs' :: Int -> { x :: Number, y :: Number } -> Int -> List Arc -> List Arc
 calculateArcs' 0 _ _ lst = lst
-calculateArcs' n {x: x, y: y} dir lst = calculateArcs' (n - 1) newCoords newDir (item : lst) where
+calculateArcs' n {x: x, y: y} quadrant lst = calculateArcs' (n - 1) newCoords newQuadrant (item : lst) where
   index = length lst
   r = fibNum index
-  newDir = if dir < 4 then dir + 1 else 1
-  item = case dir of
+  newQuadrant = if quadrant < 4 then quadrant + 1 else 1
+  item = case quadrant of
               1 -> { x: x, y: y, r: r, start: 0.0, end: pi / 2.0}
               2 -> { x: x, y: y, r: r, start: pi / 2.0, end: pi }
               3 -> { x: x, y: y, r: r, start: pi, end: 3.0 * pi / 2.0 }
               4 -> { x: x, y: y, r: r, start: 3.0 * pi / 2.0, end: 2.0 * pi }
-  newCoords = case dir of
+  newCoords = case quadrant of
                    1 -> { x: x, y: y - (r / goldenRatio) }
                    2 -> { x: x + (r / goldenRatio), y: y }
                    3 -> { x: x, y: y + (r / goldenRatio) }

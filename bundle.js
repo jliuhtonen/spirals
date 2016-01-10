@@ -8650,20 +8650,20 @@ var drawFrame = function (canvas) {
 };
 var calculateArcs$prime = function (__copy__4) {
     return function (__copy__5) {
-        return function (__copy_dir) {
+        return function (__copy_quadrant) {
             return function (__copy_lst) {
                 var _4 = __copy__4;
                 var _5 = __copy__5;
-                var dir = __copy_dir;
+                var quadrant = __copy_quadrant;
                 var lst = __copy_lst;
                 tco: while (true) {
                     if (_4 === 0) {
                         return lst;
                     };
-                    var newDir = (function () {
-                        var _13 = dir < 4;
+                    var newQuadrant = (function () {
+                        var _13 = quadrant < 4;
                         if (_13) {
-                            return dir + 1 | 0;
+                            return quadrant + 1 | 0;
                         };
                         if (!_13) {
                             return 1;
@@ -8673,7 +8673,7 @@ var calculateArcs$prime = function (__copy__4) {
                     var index = Data_List.length(lst);
                     var r = fibNum(index);
                     var item = (function () {
-                        if (dir === 1) {
+                        if (quadrant === 1) {
                             return {
                                 x: _5.x, 
                                 y: _5.y, 
@@ -8682,7 +8682,7 @@ var calculateArcs$prime = function (__copy__4) {
                                 end: $$Math.pi / 2.0
                             };
                         };
-                        if (dir === 2) {
+                        if (quadrant === 2) {
                             return {
                                 x: _5.x, 
                                 y: _5.y, 
@@ -8691,7 +8691,7 @@ var calculateArcs$prime = function (__copy__4) {
                                 end: $$Math.pi
                             };
                         };
-                        if (dir === 3) {
+                        if (quadrant === 3) {
                             return {
                                 x: _5.x, 
                                 y: _5.y, 
@@ -8700,7 +8700,7 @@ var calculateArcs$prime = function (__copy__4) {
                                 end: (3.0 * $$Math.pi) / 2.0
                             };
                         };
-                        if (dir === 4) {
+                        if (quadrant === 4) {
                             return {
                                 x: _5.x, 
                                 y: _5.y, 
@@ -8709,40 +8709,40 @@ var calculateArcs$prime = function (__copy__4) {
                                 end: 2.0 * $$Math.pi
                             };
                         };
-                        throw new Error("Failed pattern match: " + [ dir.constructor.name ]);
+                        throw new Error("Failed pattern match: " + [ quadrant.constructor.name ]);
                     })();
                     var newCoords = (function () {
-                        if (dir === 1) {
+                        if (quadrant === 1) {
                             return {
                                 x: _5.x, 
                                 y: _5.y - r / goldenRatio
                             };
                         };
-                        if (dir === 2) {
+                        if (quadrant === 2) {
                             return {
                                 x: _5.x + r / goldenRatio, 
                                 y: _5.y
                             };
                         };
-                        if (dir === 3) {
+                        if (quadrant === 3) {
                             return {
                                 x: _5.x, 
                                 y: _5.y + r / goldenRatio
                             };
                         };
-                        if (dir === 4) {
+                        if (quadrant === 4) {
                             return {
                                 x: _5.x - r / goldenRatio, 
                                 y: _5.y
                             };
                         };
-                        throw new Error("Failed pattern match: " + [ dir.constructor.name ]);
+                        throw new Error("Failed pattern match: " + [ quadrant.constructor.name ]);
                     })();
                     var __tco__4 = _4 - 1;
                     var __tco_lst = Data_List[":"](item)(lst);
                     _4 = __tco__4;
                     _5 = newCoords;
-                    dir = newDir;
+                    quadrant = newQuadrant;
                     lst = __tco_lst;
                     continue tco;
                 };
