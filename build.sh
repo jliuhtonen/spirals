@@ -1,2 +1,2 @@
 #!/bin/bash
-pulp browserify > bundle.js
+pulp build && pulp browserify > bundle.js
