@@ -48,15 +48,15 @@ calculateArcs' n {x: x, y: y} quadrant lst = calculateArcs' (n - 1) newCoords ne
   r = fibNum index
   newQuadrant = if quadrant < 4 then quadrant + 1 else 1
   item = case quadrant of
-              1 -> { x: x, y: y, r: r, start: 0.0, end: pi / 2.0}
-              2 -> { x: x, y: y, r: r, start: pi / 2.0, end: pi }
-              3 -> { x: x, y: y, r: r, start: pi, end: 3.0 * pi / 2.0 }
-              4 -> { x: x, y: y, r: r, start: 3.0 * pi / 2.0, end: 2.0 * pi }
+    1 -> { x: x, y: y, r: r, start: 0.0, end: pi / 2.0}
+    2 -> { x: x, y: y, r: r, start: pi / 2.0, end: pi }
+    3 -> { x: x, y: y, r: r, start: pi, end: 3.0 * pi / 2.0 }
+    4 -> { x: x, y: y, r: r, start: 3.0 * pi / 2.0, end: 2.0 * pi }
   newCoords = case quadrant of
-                   1 -> { x: x, y: y - (r / goldenRatio) }
-                   2 -> { x: x + (r / goldenRatio), y: y }
-                   3 -> { x: x, y: y + (r / goldenRatio) }
-                   4 -> { x: x - (r / goldenRatio), y: y }
+    1 -> { x: x, y: y - (r / goldenRatio) }
+    2 -> { x: x + (r / goldenRatio), y: y }
+    3 -> { x: x, y: y + (r / goldenRatio) }
+    4 -> { x: x - (r / goldenRatio), y: y }
 
 goldenRatio = (1.0 + (sqrt 5.0)) / 2.0
 
