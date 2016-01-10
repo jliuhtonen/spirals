@@ -12,12 +12,12 @@ import DOM.RequestAnimationFrame
 import Math (pi, sqrt)
 import Prelude
 
-strokeColor = "#6776e6"
+strokeColor = "#FFD700"
 
 main = do
   let arcs = reverse $ calculateArcs {x: 0.0, y: 0.0} 14
   Just canvas <- getCanvasElementById "canvas"
-  ctx <- getContext2D canvas >>= setStrokeStyle strokeColor
+  ctx <- getContext2D canvas >>= setStrokeStyle strokeColor >>= setLineWidth 2.0
   dimensions <- getCanvasDimensions canvas
   let middle = { x: dimensions.width / 2.0, y: dimensions.height / 2.0 }
   translate { translateX: middle.x, translateY: middle.y } ctx

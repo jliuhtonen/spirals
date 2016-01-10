@@ -8604,7 +8604,7 @@ var DOM = require("DOM");
 var DOM_RequestAnimationFrame = require("DOM.RequestAnimationFrame");
 var $$Math = require("Math");
 var Prelude = require("Prelude");
-var strokeColor = "#6776e6";
+var strokeColor = "#FFD700";
 var goldenRatio = (1.0 + $$Math.sqrt(5.0)) / 2.0;
 var fib = function (_6) {
     if (_6 === 0) {
@@ -8763,7 +8763,7 @@ var main = (function () {
     return function __do() {
         var _2 = Graphics_Canvas.getCanvasElementById("canvas")();
         if (_2 instanceof Data_Maybe.Just) {
-            var _1 = Prelude[">>="](Control_Monad_Eff.bindEff)(Graphics_Canvas.getContext2D(_2.value0))(Graphics_Canvas.setStrokeStyle(strokeColor))();
+            var _1 = Prelude[">>="](Control_Monad_Eff.bindEff)(Prelude[">>="](Control_Monad_Eff.bindEff)(Graphics_Canvas.getContext2D(_2.value0))(Graphics_Canvas.setStrokeStyle(strokeColor)))(Graphics_Canvas.setLineWidth(2.0))();
             var _0 = Graphics_Canvas.getCanvasDimensions(_2.value0)();
             return (function () {
                 var middle = {
